@@ -1,2 +1,2 @@
 # Robo-Trace
-これはロボトレのリポジトリです。
+this is RoboTrace repository.
