@@ -21,7 +21,7 @@
 
 *4. パーツ*
    - 動輪部分
-      - 平歯車　M0.3,　歯数 80,　直径 24.6mm,　厚さ 2.0mm
-      - ピニオン　M0.3,　歯数 28,　直径 9mm
+      - 平歯車　M0.3,　歯数 80,　直径 24.6mm,　厚さ 2.0mm,　ピッチ円 24mm
+      - ピニオン　M0.3,　歯数 28,　直径 9mm,　ピッチ円 8.4mm
       - モータ　maxon DCX 10 L　(公称電圧 4.5v)
       - ベアリング 外形 7mm　内径 4mm [詳しくはこれ](https://jp.misumi-ec.com/vona2/detail/110300116230/?CategorySpec=00000228895%3a%3ab%0900000228694%3a%3amig00000002484781%0900000229286%3a%3amig00000002491660%0900000228562%3a%3ag&clkid=clkid_basic_shape_template&list=PageCategory)
