@@ -28,3 +28,6 @@
 
 *5. CADデータ*
    ![image](https://user-images.githubusercontent.com/83150974/141968967-4ca1aa63-3e5b-4090-8734-b0a225b22d6f.png)
+
+*6. 搭載するセンサ*
+   - 
