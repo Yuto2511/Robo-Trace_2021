@@ -27,4 +27,4 @@
       - ベアリング 外形 7mm　内径 4mm [詳しくはこれ](https://jp.misumi-ec.com/vona2/detail/110300116230/?CategorySpec=00000228895%3a%3ab%0900000228694%3a%3amig00000002484781%0900000229286%3a%3amig00000002491660%0900000228562%3a%3ag&clkid=clkid_basic_shape_template&list=PageCategory)
 
 *5. CADデータ*
-   ![image](https://user-images.githubusercontent.com/83150974/141968146-5198c960-008f-484e-9f47-923124756e45.png)
+   ![image](https://user-images.githubusercontent.com/83150974/141968967-4ca1aa63-3e5b-4090-8734-b0a225b22d6f.png)
