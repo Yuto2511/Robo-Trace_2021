@@ -52,5 +52,14 @@
            　以上を考慮して以下の2つを選んだ。1つ目は、かっこよくないが性能はいいはず。2つ目は先輩が使っているので安心だが1つ目より暗電流が大きい。しかしカッコイイ！
          - [SFH 3400-2/3-Z](https://www.digikey.jp/ja/products/detail/osram-opto-semiconductors-inc/SFH-3400-2-3-Z/1989740)
          - [TEMT7000X01](https://www.digikey.jp/ja/products/detail/vishay-semiconductor-opto-division/TEMT7000X01/4075721)
-   - サイドセンサ部
+      - 赤外線LED  
+      　上記どちらのフォトトランジスタを選んでも、受光する光の波長は850nmなので以下に決定する。選ぶ条件として、850nmに近い波長を出せることと、カッコよさで選ぶ。
+         - [15406085BA300](https://www.digikey.jp/ja/products/detail/w%C3%BCrth-elektronik/15406085BA300/8557170)
+   - サイドセンサ部  
+         　部品はラインセンサ部と同じものを使用するが、フォトトランジスタの動作モードをスイッチモードとして使おうと考えている。マーカーの有無の評価すればよいので、アクティブモードを使用する必要はない。  
+         　モード切替は負荷抵抗Rの値によって決まる。アクティブモードは、Vcc > R * Ic のときで、スイッチモードは、Vcc < R * Ic のときとなる。このときの Vc,Ic はそれぞれ、電源電圧、最大予測電流となる。くわしくは[ここ](https://www.digikey.jp/ja/articles/how-to-use-photodiodes-and-phototransistors-most-effectively)。
    - デバック
+      - LED
+        - [LED Red](https://akizukidenshi.com/catalog/g/gI-03978/)
+        - [LED Green](https://akizukidenshi.com/catalog/g/gI-06417/)
+        - [LED RGB](https://akizukidenshi.com/catalog/g/gI-06418/)
