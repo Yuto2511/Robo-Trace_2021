@@ -73,7 +73,8 @@
         - [LED RGB](https://akizukidenshi.com/catalog/g/gI-06418/)
       - IMU  
         調べた限り、以下の3つしかよさげなものがなかった。もし先輩達が在庫を持っていたら...欲しいですね。  
-        今のところ IAM-20680HT が候補。
+        在庫があるとのことなので、ICM-20648を使うことにする。
+        - [ICM-20648](https://www.digikey.jp/ja/products/detail/tdk-invensense/ICM-20648/5872876) <= これを使う
         - [IAM-20680HT](https://www.digikey.jp/ja/products/detail/tdk-invensense/IAM-20680HT/15792840)
         - [FSP200](https://www.digikey.jp/ja/products/detail/ceva-technologies-inc/FSP200/10283874)
         - [MPU-6500](https://www.digikey.jp/ja/products/detail/tdk-invensense/MPU-6500/4385412)
