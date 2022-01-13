@@ -44,13 +44,23 @@
    ![image](https://user-images.githubusercontent.com/83150974/141968967-4ca1aa63-3e5b-4090-8734-b0a225b22d6f.png)
 
 ## 電子パーツ
-   - マイコン
+   - マイコン  
+     - 必要なピン数
+       - ADC   5個以上
+       - PWM   3個以上
+       - GPIO  あるだけいい、どうせ足りる
       ***
    - 電源回路周り
       ***
-   - 車輪モータ駆動部
+   - 車輪モータ駆動部  
+     どこのサイトでも在庫がなく入荷も一年後と入手できないため、先輩からもらうことにする。
+      - [DRV8874](https://www.digikey.jp/ja/products/detail/texas-instruments/DRV8874PWPR/11502339)
       ***
-   - センサステアモータ駆動部
+   - センサステアモータ駆動部  
+     モタドラICは車輪モータと同じものを使う。
+     - エンコーダ  
+     センサーバーの位置制御用にロータリーエンコーダを用いる  
+         - [RDC503013A](https://jp.misumi-ec.com/vona2/detail/222005900303/?HissuCode=RDC503013A)
       ***
    - ラインセンサ部
       - フォトトランジスタ  
