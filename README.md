@@ -45,12 +45,19 @@
 
 ## 電子パーツ
    - マイコン  
+     - 候補  
+       - [STM32F446](https://www.digikey.jp/ja/products/detail/stmicroelectronics/STM32F446RET6/5175962) <= 多分これ
+       - [STM32F405](https://www.digikey.jp/ja/products/detail/stmicroelectronics/STM32F405RGT7/5051343)
      - 必要なピン数
        - ADC   5個以上
        - PWM   3個以上
        - GPIO  あるだけいい、どうせ足りる
+     - メモリに関して  
+     　メモリを食うのは主にコース記憶に関してで、コースの長さは最長60mでもし1cm間隔でデバックしていった場合、1つのデバッカーで単純計算6,000個のデータが必要になる。1データ4bitで計算すると24KBの容量を食う。もしIMUとエンコーダを使った場合、機体全体(センサーバーも含む)で4個、つまり96KB使うこととなる。また0.5cm間隔でデバックした場合2倍の192KBの容量を食うことになる。  
+     　[STM32F446](https://www.digikey.jp/ja/products/detail/stmicroelectronics/STM32F446RET6/5175962)、[STM32F405](https://www.digikey.jp/ja/products/detail/stmicroelectronics/STM32F405RGT7/5051343)のどちらを選んでもRAMが足りないので、フラッシュメモリに書き込むことになる。いっそのことSDカードを積むのも手だと思う。その場合、速度の速い[STM32F446](https://www.digikey.jp/ja/products/detail/stmicroelectronics/STM32F446RET6/5175962)を使うことになる。
       ***
-   - 電源回路周り
+   - 電源回路周り  
+   　今回初めての回路設計なので、DC/DCコンバータと3端子レギュレータの両方を使ってみたい。なのバッテリーからDC/DCコンバータで減圧して、そこから3端子レギュレータで減圧したいと思う。
       ***
    - 車輪モータ駆動部  
      どこのサイトでも在庫がなく入荷も一年後と入手できないため、先輩からもらうことにする。
@@ -88,3 +95,9 @@
         - [IAM-20680HT](https://www.digikey.jp/ja/products/detail/tdk-invensense/IAM-20680HT/15792840)
         - [FSP200](https://www.digikey.jp/ja/products/detail/ceva-technologies-inc/FSP200/10283874)
         - [MPU-6500](https://www.digikey.jp/ja/products/detail/tdk-invensense/MPU-6500/4385412)
+      - SDカード  
+      めんどくさいので、先輩のと同じものを使う。  
+        - [ヒロセ・マイクロSDカードコネクタ DM3AT-SF-PEJM5](https://akizukidenshi.com/catalog/g/gC-02395/)
+        - [KIOXIA マイクロSDカード(microSDHC)EXCERIA 16GB 100MB/s](https://akizukidenshi.com/catalog/g/gS-15845/)
+      - LCD  
+        - [I2C接続小型LCDモジュール(8*2行)ピッチ変換キット](https://akizukidenshi.com/catalog/g/gK-06795/)
