@@ -46,18 +46,19 @@
 ## 電子パーツ
    - マイコン  
      - 候補  
-       - [STM32F446](https://www.digikey.jp/ja/products/detail/stmicroelectronics/STM32F446RET6/5175962) <= 多分これ
-       - [STM32F405](https://www.digikey.jp/ja/products/detail/stmicroelectronics/STM32F405RGT7/5051343)
+       - [STM32F446](https://www.digikey.jp/ja/products/detail/stmicroelectronics/STM32F446RET6/5175962)
+       - [STM32F405](https://www.digikey.jp/ja/products/detail/stmicroelectronics/STM32F405RGT7/5051343) <= これ使う
      - 必要なピン数
        - ADC   5個以上
        - PWM   3個以上
-       - GPIO  あるだけいい、どうせ足りる
+       - GPIO  あるだけいい、どうせ足りる　<= 64pinじゃ足りなかったので次は100pinかな
      - メモリに関して  
      　メモリを食うのは主にコース記憶に関してで、コースの長さは最長60mでもし1cm間隔でデバックしていった場合、1つのデバッカーで単純計算6,000個のデータが必要になる。1データ4bitで計算すると24KBの容量を食う。もしIMUとエンコーダを使った場合、機体全体(センサーバーも含む)で4個、つまり96KB使うこととなる。また0.5cm間隔でデバックした場合2倍の192KBの容量を食うことになる。  
      　[STM32F446](https://www.digikey.jp/ja/products/detail/stmicroelectronics/STM32F446RET6/5175962)、[STM32F405](https://www.digikey.jp/ja/products/detail/stmicroelectronics/STM32F405RGT7/5051343)のどちらを選んでもRAMが足りないので、フラッシュメモリに書き込むことになる。いっそのことSDカードを積むのも手だと思う。その場合、速度の速い[STM32F446](https://www.digikey.jp/ja/products/detail/stmicroelectronics/STM32F446RET6/5175962)を使うことになる。
       ***
    - 電源回路周り  
-   　今回初めての回路設計なので、DC/DCコンバータと3端子レギュレータの両方を使ってみたい。なのバッテリーからDC/DCコンバータで減圧して、そこから3端子レギュレータで減圧したいと思う。
+   　今回初めての回路設計なので、DC/DCコンバータと3端子レギュレータの両方を使ってみたい。なのバッテリーからDC/DCコンバータで減圧して、そこから3端子レギュレータで減圧したいと思う。  
+      - [LP38690DTX-3.3/NOPB](https://www.mouser.jp/ProductDetail/Texas-Instruments/LP38690DTX-33-NOPB?qs=1FNqv8aZn1TYRyMpXrH3Aw%3D%3D)
       ***
    - 車輪モータ駆動部  
      どこのサイトでも在庫がなく入荷も一年後と入手できないため、先輩からもらうことにする。
@@ -77,7 +78,9 @@
          - [TEMT7000X01](https://www.digikey.jp/ja/products/detail/vishay-semiconductor-opto-division/TEMT7000X01/4075721)
       - 赤外線LED  
       　上記どちらのフォトトランジスタを選んでも、受光する光の波長は850nmなので以下に決定する。選ぶ条件として、850nmに近い波長を出せることと、カッコよさで選ぶ。
-         - [15406085BA300](https://www.digikey.jp/ja/products/detail/w%C3%BCrth-elektronik/15406085BA300/8557170)
+         - [15406085BA300](https://www.digikey.jp/ja/products/detail/w%C3%BCrth-elektronik/15406085BA300/8557170) <= 在庫切れ  
+        欲しかったLEDの在庫がないので、先輩と同じものを使う…
+         - [SIR19-21C/TR8](https://www.digikey.jp/ja/products/detail/everlight-electronics-co-ltd/SIR19-21C-TR8/2676159)
       ***
    - サイドセンサ部  
          　部品はラインセンサ部と同じものを使用するが、フォトトランジスタの動作モードをスイッチモードとして使おうと考えている。マーカーの有無の評価すればよいので、アクティブモードを使用する必要はない。  
