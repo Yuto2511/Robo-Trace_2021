@@ -57,15 +57,25 @@
      　[STM32F446](https://www.digikey.jp/ja/products/detail/stmicroelectronics/STM32F446RET6/5175962)、[STM32F405](https://www.digikey.jp/ja/products/detail/stmicroelectronics/STM32F405RGT7/5051343)のどちらを選んでもRAMが足りないので、フラッシュメモリに書き込むことになる。いっそのことSDカードを積むのも手だと思う。その場合、速度の速い[STM32F446](https://www.digikey.jp/ja/products/detail/stmicroelectronics/STM32F446RET6/5175962)を使うことになる。
       ***
    - 電源回路周り  
-   　今回初めての回路設計なので、DC/DCコンバータと3端子レギュレータの両方を使ってみたい。なのバッテリーからDC/DCコンバータで減圧して、そこから3端子レギュレータで減圧したいと思う。  
-      - [LP38690DTX-3.3/NOPB](https://www.mouser.jp/ProductDetail/Texas-Instruments/LP38690DTX-33-NOPB?qs=1FNqv8aZn1TYRyMpXrH3Aw%3D%3D)
+   　今回初めての回路設計なので、DC/DCコンバータと3端子レギュレータの両方を使ってみたい。なのバッテリーからDC/DCコンバータで減圧して、そこから3端子レギュレータで減圧したいと思う。 
+      - DC/DCコンバータ  
+        DC/DCコンバータとは何かについて、[この動画](https://www.youtube.com/watch?v=SFsMFGFOkWY&list=PLmhf46XKsdmTrVYV_fUMa2XLk81oa_NDB)で勉強した。　　
+         - [LTC2624IMSE-25](https://www.digikey.jp/ja/products/detail/analog-devices-inc/LTC3624IMSE-25-PBF/5699826)
+         - [MPLCG0630L1R5(インダクタ)](https://www.digikey.jp/ja/products/detail/kemet/MPLCG0630L1R5/4291043?s=N4IgTCBcDaILIAUAyBhA4gBgGwGYNIEYAlAVhAF0BfIA) <= 在庫があればこれ
+         - [XAL4020-152MEC(インダクタ)](https://www.mouser.jp/ProductDetail/Coilcraft/XAL4020-152MEC?qs=zCSbvcPd3pbTTY9oGElImA%3D%3D) <= これ在庫いっぱい
+         - [SMAZ15-13-F(ツェナー)](https://www.digikey.jp/ja/products/detail/diodes-incorporated/SMAZ15-13-F/775753) <= 正直どれ使えばいいかわからない、とりあえず公称15Vにした。
+      - 三端子レギュレータ
+         - [LP38690DTX-3.3/NOPB](https://www.mouser.jp/ProductDetail/Texas-Instruments/LP38690DTX-33-NOPB?qs=1FNqv8aZn1TYRyMpXrH3Aw%3D%3D)
+      - 共通部品
+         - [アルミ電解コンデンサ 100uF(丸)](https://akizukidenshi.com/catalog/g/gP-14452/) <= 低ESRで、ノイズに強いらしい。
       ***
    - 車輪モータ駆動部  
      どこのサイトでも在庫がなく入荷も一年後と入手できないため、先輩からもらうことにする。
       - [DRV8874](https://www.digikey.jp/ja/products/detail/texas-instruments/DRV8874PWPR/11502339)
+      - [アルミ電解コンデンサ 100uF(四角)](https://akizukidenshi.com/catalog/g/gP-06855/) <= これもノイズに強いらしい、だが定格12.5Vだから3セル積んだら終わるかも...
       ***
    - センサステアモータ駆動部  
-     モタドラICは車輪モータと同じものを使う。
+     モタドラ系の回路は車輪モータと同じ。
      - エンコーダ  
      センサーバーの位置制御用にロータリーエンコーダを用いる  
          - [RDC503013A](https://jp.misumi-ec.com/vona2/detail/222005900303/?HissuCode=RDC503013A)
@@ -83,10 +93,13 @@
          - [SIR19-21C/TR8](https://www.digikey.jp/ja/products/detail/everlight-electronics-co-ltd/SIR19-21C-TR8/2676159)
       ***
    - サイドセンサ部  
-         　部品はラインセンサ部と同じものを使用するが、フォトトランジスタの動作モードをスイッチモードとして使おうと考えている。マーカーの有無の評価すればよいので、アクティブモードを使用する必要はない。  
-         　モード切替は負荷抵抗Rの値によって決まる。アクティブモードは、Vcc > R * Ic のときで、スイッチモードは、Vcc < R * Ic のときとなる。このときの Vc,Ic はそれぞれ、電源電圧、最大予測電流となる。くわしくは[ここ](https://www.digikey.jp/ja/articles/how-to-use-photodiodes-and-phototransistors-most-effectively)。
+     赤外線LEDはラインセンサと同じものを使う。
+      - [S7136](https://akizukidenshi.com/catalog/g/gI-02425/) <= 先輩と同じ。HIGHLOW出力
       ***
    - デバックとその他
+      - スイッチ
+        - [SKRHAAE010](https://akizukidenshi.com/catalog/g/gP-14676/)
+        - [SKRPABE010](https://akizukidenshi.com/catalog/g/gP-06184/)
       - LED
         - [LED Red](https://akizukidenshi.com/catalog/g/gI-03978/)
         - [LED Green](https://akizukidenshi.com/catalog/g/gI-06417/)
@@ -103,4 +116,6 @@
         - [ヒロセ・マイクロSDカードコネクタ DM3AT-SF-PEJM5](https://akizukidenshi.com/catalog/g/gC-02395/)
         - [KIOXIA マイクロSDカード(microSDHC)EXCERIA 16GB 100MB/s](https://akizukidenshi.com/catalog/g/gS-15845/)
       - LCD  
-        - [I2C接続小型LCDモジュール(8*2行)ピッチ変換キット](https://akizukidenshi.com/catalog/g/gK-06795/)
+        - [I2C接続小型LCDモジュール(8*2行)](https://akizukidenshi.com/catalog/g/gP-06669/)
+      - コンデンサ、抵抗  
+        こいつらは、適当に選んだ。サイズは「0603」「0402」の2種類のみ。
