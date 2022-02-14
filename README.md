@@ -125,4 +125,5 @@
   回路図のデータを以下に示す。mainとsubのどちらの回路も一つのpdfにまとめてある。  
   [RoboTrace_回路図](https://github.com/Yuto2511/Robo-Trace/files/8059954/RoboTrace_2021.pdf)
   - PCB  
-  
+  ![スクリーンショット 2022-02-06 200413](https://user-images.githubusercontent.com/83150974/153848313-383bf9f2-6549-4da8-8a45-d2c32222067a.png)
+
