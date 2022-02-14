@@ -123,4 +123,6 @@
 ## 回路図＆PDB  
   - 回路図  
   回路図のデータを以下に示す。mainとsubのどちらの回路も一つのpdfにまとめてある。  
-  [RoboTrace_回路図]()
+  [RoboTrace_回路図](https://github.com/Yuto2511/Robo-Trace/files/8059954/RoboTrace_2021.pdf)
+  - PCB  
+  
