@@ -25,20 +25,22 @@
       - ピニオン　M0.3,　歯数 28,　直径 9mm,　ピッチ円 8.4mm
       - モータ　maxon DCX 10 L　(公称電圧 4.5V)　シャフトの長さ 4.9mm
       - ベアリング 外形 7mm　内径 4mm [詳しくはこれ](https://jp.misumi-ec.com/vona2/detail/110300116230/?CategorySpec=00000228895%3a%3ab%0900000228694%3a%3amig00000002484781%0900000229286%3a%3amig00000002491660%0900000228562%3a%3ag&clkid=clkid_basic_shape_template&list=PageCategory)
+      - ホイール　MCナイロン
+      - タイヤ　オプセル　ハイグリップシート
+      - シャフト　磨きアルミ棒 直径 4.0mm
       ***
    - センサーバー周り
       - モータ　maxon DCX 6 M　(公称電圧 4.5V)　シャフトの長さ 8.2mm
-      - ピニオン(モータ側)　M0.3,　歯数 11,　直径 3.9mm,　厚さ 2.0mm, ピッチ円 3.3mm
-      - 平歯車(モータ側)　M0.3,　歯数 77,　直径 mm,　厚さ 2.0mm, ピッチ円 23.1mm
+      - ピニオン(モータ側)　M0.3,　歯数 15,　直径 3.9mm,　厚さ 2.0mm, ピッチ円 3.3mm
+      - 平歯車(モータ側)　M0.3,　歯数 50,　直径 mm,　厚さ 2.0mm, ピッチ円 23.1mm
       - ベアリング(モータ側)　外形 5.0mm　内径 2.0mm
-      - ピニオン(センサ側)　M0.3,　歯数 11,　直径 3.9mm,　厚さ 2.0mm, ピッチ円 3.3mm
-      - 平歯車(センサ側)　M0.3,　歯数 88,　直径 mm,　厚さ 2.0mm, ピッチ円 26.4mm
+      - ピニオン(センサ側)　M0.3,　歯数 15,　直径 3.9mm,　厚さ 2.0mm, ピッチ円 3.3mm
+      - 平歯車(センサ側)　M0.3,　歯数 64,　直径 mm,　厚さ 2.0mm, ピッチ円 26.4mm
       - ベアリング(センサ側)　外形 7.0mm　内径 4.0mm
       ***
    - その他
-      - シャーシ基板　厚さ 1.2mm
-      - センサ基板　厚さ　1.0mm
-      - プリントパーツ　オニキスを使用
+      - 基板　厚さ 1.6mm
+      - プリントパーツ　オニキス
 
 ## CADデータ
    ![iOS の画像 (1)](https://user-images.githubusercontent.com/83150974/153847095-abf01e89-e148-4ad2-ac0c-91faad6aa42d.jpg)
@@ -127,3 +129,96 @@
   - PCB  
   ![スクリーンショット 2022-02-06 200413](https://user-images.githubusercontent.com/83150974/153848313-383bf9f2-6549-4da8-8a45-d2c32222067a.png)
 
+## プログラム  
+  - 使用するソフト  
+  ソフトは「STM32CubeIDE」を使用。またシリアル通信には「Tera Term」を使う。  
+  ***
+  - ライントレース  
+  ```Swift
+  int SensVal = 0;
+  SensVal = Sensor_R - Sensor_L;
+  
+  if(SensVal >= 0) turnFlag = 0; //Turn_Right
+  else if(SensVal < 0) turnFlag = 1;   //Turn_Left
+  
+  SensVal_I += SensVal;
+  if(SensVal_I >= 10000000) SensVal_I = 10000000;
+  if(SensVal_I <= (-10000000)) SensVal_I = (-10000000);
+  SensVal_D = SensVal_Buf - SensVal;
+  SensVal_Buf = SensVal;
+  
+  Motor_R = CommSpeed + ((SensVal * P_Gain) + (SensVal_I * I_Gain) - (SensVal_D * D_Gain));
+  Motor_L = CommSpeed - ((SensVal * P_Gain) + (SensVal_I * I_Gain) - (SensVal_D * D_Gain));
+  ```
+  左右のセンサ値の差をなくすようにPID制御している。  
+  「CommSpeed」は、指定されたモータのデューティ比（0~9999）
+  ***
+  - サイドセンサのスタート＆ストップ  
+  ```Swift
+  int flag = 0, flag_L = 0;
+  if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_3) != 0)  //L_Low
+  {
+     if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_2) == 0)  //R_High
+	  {
+        while(1)
+        {
+           if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_2) != 0)  //R_Low
+           {
+              if(flag_L == 1) flag = 0;
+              else if(flag_L == 0) flag = 1;
+              break;
+           }
+           if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_3) == 0)  //L_High
+           {
+              flag_L = 1;
+              flag = 0;
+           }
+           else if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_3) != 0)   //L_Low
+           {
+              flag = 1;
+           }
+        }
+        if(flag == 1) StFlag += 1;
+     }
+     flag_L = 0;
+  }
+  if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_3) == 0)  //L_High
+  {
+     while(1) if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_3) != 0 && HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_2) != 0) break;
+  }
+  flag = 0;
+  ```
+  左右のセンサは、読み取りの順番に４通りの順番があり、左右どちらが先にマーカを読むかと、先に読み終わるか。この４通りを識別してスタート＆ストップをしなければいけない。
+  ***
+  - 速度計算
+  ```Swift
+  encoder = TIMX -> CNT;
+  encoder = (encoder - 32767);
+  
+  speed = ((297 * M_PI) / 1146.9) * encoder;
+  
+  TIMX -> CNT = 32767;
+  ```
+  　エンコーダーで取得した値からCounhter Periodの中央値(今回の32767)を引くことで、変化率と回転方向を取得している。回転方向をどう取得しているかは、最後の行でエンコーダーのカウントに中央値の32767をカウントごとに代入し、変化率がマイナスなのかプラスなのかで回転方向を得ている。  
+  　速度をどのように計算しているかは、まずモータの角速度を得ることから始まる。  
+   ```
+   ω = 2π * ( (変化率 / t) / 一回転の最大カウント )  
+   ```
+  　まず、変化率を割り込み時間で割ることで「単位時間あたりの変化率」をしる。これをモータが一回転するときエンコーダーがカウントする数で割り、2πをかけることで、単位時間あたりにモータが回転する角度がわかる。つまり角速度を得ることが出来る。  
+    これから速度が求まる。  
+   ```
+   V = r * (ω * 減速比)  
+   ```
+   速度は求まるが、「ω」はモータの角速度であるから、減速比をかけてタイヤの角速度に変換する。そしてタイヤの半径をかけることで、速度が求まる。
+ ***
+ - 速度制御
+ ```Swift
+ delta_speed = speed_ref - ((speed_Rght + speed_Left) / 2);
+ I_Value += delta_speed * sampling_time;
+ if(I_Value >= 10000000) I_Value = 10000000;
+ if(I_Value <= (-10000000)) I_Value = (-10000000);
+ 
+ CommSpeed = P_Gain * delta_speed + I_Gain * I_Value;
+ ```
+ 速度制御はPI制御で行う。  
+ 左右の速度の平均と目標速度を比較して制御する。「sampling_time」は割り込み時間である。
